@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\UpdateBookImageRequest;
 use App\Services\BookService;
 use App\Http\Requests\BookRequest;
+use Illuminate\Http\Request;
 
 class ApiBookController extends ApiController
 {
@@ -39,6 +40,15 @@ class ApiBookController extends ApiController
     {
         $book = $this->bookService->updateBookImage($request->validated());
         return response()->json($book, 200);
+    }
+
+    public function searchByAuthorLastName(Request $request)
+    {
+        $authorLastName = $request->query('query');
+
+        $books = $this->bookService->searchByAuthorLastName($authorLastName);
+
+        return response()->json($books, 200);
     }
 
 

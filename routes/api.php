@@ -19,9 +19,10 @@ use App\Http\Controllers\Api\{ApiBookController, ApiAuthorController};
 Route::prefix('/api-book')->name('api-book.')->group(function () {
     Route::get('/', [ApiBookController::class, 'index'])->name('index');
     Route::post('/', [ApiBookController::class, 'store'])->name('store');
-    Route::get('/{id}', [ApiBookController::class, 'show'])->name('show');
+    Route::get('/{id}/show', [ApiBookController::class, 'show'])->name('show');
     Route::put('/{id}', [ApiBookController::class, 'update'])->name('update');
     Route::post('/update/image', [ApiBookController::class, 'updateImage']);
+    Route::get('/search-by-author', [ApiBookController::class, 'searchByAuthorLastName'])->name('search.books.by_author_lastname');
 });
 
 Route::prefix('/api-author')->name('api-author.')->group(function () {

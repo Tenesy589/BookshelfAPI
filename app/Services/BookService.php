@@ -92,6 +92,16 @@ class BookService
         return $this->success($book->load('authors'));
     }
 
+    public function searchByAuthorLastName($authorLastName)
+    {
+        $books = Book::whereHas('authors', function ($query) use ($authorLastName) {
+            $query->where('last_name', 'LIKE', '%' . $authorLastName . '%');
+        })->with(['authors' => function ($query) use ($authorLastName) {
+            $query->where('last_name', 'LIKE', '%' . $authorLastName . '%');
+        }])->paginate(12);
+
+        return $this->success($books);
+    }
 
 }
 
